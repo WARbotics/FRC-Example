@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,8 +22,14 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * directory.
  */
 public class Robot extends TimedRobot {
+  private PWMVictorSPX frontLeft = new PWMVictorSPX(0);
+  private PWMVictorSPX frontRight = new PWMVictorSPX(1);
+  private PWMVictorSPX rearLeft = new PWMVictorSPX(2);
+  private PWMVictorSPX rearRight = new PWMVictorSPX(3);
+  private SpeedControllerGroup left = new SpeedControllerGroup(frontLeft, rearLeft);
+  private SpeedControllerGroup right = new SpeedControllerGroup(frontRight, rearRight);
   private final DifferentialDrive m_robotDrive
-      = new DifferentialDrive(new PWMVictorSPX(0), new PWMVictorSPX(1));
+      = new DifferentialDrive(left, right);
   private final Joystick m_stick = new Joystick(0);
   private final Timer m_timer = new Timer();
 
